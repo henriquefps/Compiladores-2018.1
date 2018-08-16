@@ -1,0 +1,30 @@
+S (S(KS)(KI)) (S(KK)I) A B
+S (KS) (KI) A ((S(KK)I)A) B
+K S A ((KI)A) ((S(KK)I)A) B
+S ((KI)A) ((S(KK)I)A) B
+K I A B (((S(KK)I)A)B)
+I B (((S(KK)I)A)B)
+B S (KK) I A B
+B (KK)A (IA) B
+B K (IA) B
+B (IA)
+B A
+
+S (S(K+)I) (K1) 3
+S (K+) I 3 ((K1)3)
+(K+)3 I 3 ((K1)3)
++ I 3 ((K1)3)
++3 K 1 3
++ 3 1
+4
+ 
+S (S(K+)I) (S(S(K+)I)I) 3
+S (K+) I 3 ((S(S(K+)I)I) 3)
+(K+)3 (I3) ((S(S(K+)I)I) 3)
++ 3 S (S(K+)I) I 3
++ 3 S (K+) I 3 (I3)
++ 3 (K+)3 (I3) (I3)
++3 + 3 3
+9
+
+

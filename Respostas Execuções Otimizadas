@@ -1,0 +1,38 @@
+Last login: Mon May 14 09:17:56 on ttys000
+MacBook-Pro-de-Henrique:~ henrique$ cd /Users/henrique/Downloads/Codigos_Compiladores/Melhoria_de_Lucas 
+MacBook-Pro-de-Henrique:Melhoria_de_Lucas henrique$ gcc -o1 CS_i_KSI.c
+MacBook-Pro-de-Henrique:Melhoria_de_Lucas henrique$ ./a.out
+^C
+MacBook-Pro-de-Henrique:Melhoria_de_Lucas henrique$ gcc -O1 CS_i_KSI.c
+MacBook-Pro-de-Henrique:Melhoria_de_Lucas henrique$ ./a.out
+^C
+MacBook-Pro-de-Henrique:Melhoria_de_Lucas henrique$ gcc CS_i_KSI.c -O1
+MacBook-Pro-de-Henrique:Melhoria_de_Lucas henrique$ ./a.out
+^Z
+[1]+  Stopped                 ./a.out
+MacBook-Pro-de-Henrique:Melhoria_de_Lucas henrique$ gcc CS_i_KS
+CS_i_KS.c   CS_i_KSI.c  
+MacBook-Pro-de-Henrique:Melhoria_de_Lucas henrique$ gcc CS_i_KSI.c -o a.out -O1
+MacBook-Pro-de-Henrique:Melhoria_de_Lucas henrique$ ./a.out
+Resposta: K
+Tempo = 490.000000MacBook-Pro-de-Henrique:Melhoria_de_Lucas henrique$ 
+MacBook-Pro-de-Henrique:Melhoria_de_Lucas henrique$ 
+MacBook-Pro-de-Henrique:Melhoria_de_Lucas henrique$ gcc CS_i_KSI.c -o a.out -O2
+MacBook-Pro-de-Henrique:Melhoria_de_Lucas henrique$ ./a.out
+Resposta: K
+Tempo = 609.000000MacBook-Pro-de-Henrique:Melhoria_de_Lucas henrique$ gcc CS_i_KSI.c -o a.out -O3
+MacBook-Pro-de-Henrique:Melhoria_de_Lucas henrique$ ./a.out
+Resposta: K
+Tempo = 607.000000MacBook-Pro-de-Henrique:Melhoria_de_Lucas henrique$ gcc IF_i_K
+MacBook-Pro-de-Henrique:Melhoria_de_Lucas henrique$ ./a.out
+
+Resposta: K
+Tempo = 493.000000MacBook-Pro-de-Henrique:Melhoria_de_Lucas henrique$ 
+MacBook-Pro-de-Henrique:Melhoria_de_Lucas henrique$ gcc IF_i_KSI.c -o a.out -O2
+MacBook-Pro-de-Henrique:Melhoria_de_Lucas henrique$ ./a.out
+Resposta: K
+Tempo = 606.000000MacBook-Pro-de-Henrique:Melhoria_de_Lucas henrique$ gcc IF_i_KSI.c -o a.out -O2
+MacBook-Pro-de-Henrique:Melhoria_de_Lucas henrique$ gcc IF_i_KSI.c -o a.out -O3
+MacBook-Pro-de-Henrique:Melhoria_de_Lucas henrique$ ./a.out
+Resposta: K
+Tempo = 605.000000MacBook-Pro-de-Henrique:Melhoria_de_Lucas henrique$ 
