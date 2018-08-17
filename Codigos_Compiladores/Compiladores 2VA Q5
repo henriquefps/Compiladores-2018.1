@@ -1,0 +1,30 @@
+apply = [f][x]fx
+[f]S([x]f)([x]x)
+[f](S(KF))I
+S([f]S(KF))([F]I)
+S(S([F]S)([F]KF))(KI)
+S(S(KS)(S([F]K)([F]F))) (KI)
+S(S(KS)(S(KK)I))(KI)
+
+succ = S(S(K+)I)(K1)
+
+double = (S(S(K+)I)I)
+
+(Apply)(succ)((double) 7)
+
+S (S(KS)(S(KK)I)) (KI) (S(S(K+)I)(K1)) ((S(S(K+)I)I) 7)
+S (KS) (S(KK)I) (S(S(K+)I)(K1)) ((KI) (S(S(K+)I)(K1))) ((S(S(K+)I)I) 7)
+K S (S(S(K+)I)(K1)) ((S(KK)I) (S(S(K+)I)(K1))) ((KI) (S(S(K+)I)(K1))) ((S(S(K+)I)I) 7)
+S ((S(KK)I) (S(S(K+)I)(K1))) ((KI) (S(S(K+)I)(K1))) ((S(S(K+)I)I) 7)
+S (KK) I (S(S(K+)I)(K1)) ((S(S(K+)I)I) 7) (((KI) (S(S(K+)I)(K1))) ((S(S(K+)I)I) 7))
+K K (S(S(K+)I)(K1)) (I(S(S(K+)I)(K1)))((S(S(K+)I)I) 7) (((KI) (S(S(K+)I)(K1))) ((S(S(K+)I)I) 7))
+K (I(S(S(K+)I)(K1))) ((S(S(K+)I)I) 7) (((KI) (S(S(K+)I)(K1))) ((S(S(K+)I)I) 7))
+S (S(K+)I) (K1) (((KI) (S(S(K+)I)(K1))) ((S(S(K+)I)I) 7))
+S (K+) I (((KI) (S(S(K+)I)(K1))) ((S(S(K+)I)I) 7)) ((K1) (((KI) (S(S(K+)I)(K1))) ((S(S(K+)I)I) 7)))
+K + (((KI) (S(S(K+)I)(K1))) ((S(S(K+)I)I) 7))(I(((KI) (S(S(K+)I)(K1))) ((S(S(K+)I)I) 7)))((K1) (((KI) (S(S(K+)I)(K1))) ((S(S(K+)I)I) 7)))
++ K I (S(S(K+)I)(K1)) ((S(S(K+)I)I) 7)((K1) (((KI) (S(S(K+)I)(K1))) ((S(S(K+)I)I) 7)))
++ S (S(K+)I) I 7 ((K1) (((KI) (S(S(K+)I)(K1))) ((S(S(K+)I)I) 7)))
++ S (K+) I 7 (I7) ((K1) (((KI) (S(S(K+)I)(K1))) ((S(S(K+)I)I) 7)))
++ (K+)7 (I7)(I7) ((K1) (((KI) (S(S(K+)I)(K1))) ((S(S(K+)I)I) 7)))
+++77 K 1 (((KI) (S(S(K+)I)(K1))) ((S(S(K+)I)I) 7))
+++771

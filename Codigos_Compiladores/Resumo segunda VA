@@ -1,0 +1,21 @@
+1. O que é passo de compilação e quais as vantagens e desvantagens de se ter mais de um
+passo?
+Passo de compilação é a saída de um compilador. Ter mais passos torna o compilador mais fácil de se manter, porém, menos passos torna o compilador menor e mais eficiente.
+
+2. Por que separar análise léxica e sintática?
+Separar essas duas partes da compilação é importante para simplificar o Parser, essa separação permite contruir analisadores sintáticos e léxicos mais eficientes.
+
+3. Explique detalhadamente o que faz e a vantagem do uso de ferramentas como o LEX para
+análise léxica?
+Ferramentas como o LEX gerar automatos finitos determinísticos mínimos e ótimos capazes de reconhecer as expressões regulares que representam o programa a ser executado. Por isso são capazes de dar uma grande eficiência à programação de alto nível, além de ser portátil e mantenível.
+
+4. Explique detalhadamente o que faz e a vantagem do uso de ferramentas como o YACC para
+análise sintática?
+
+
+5. Diga o que sabe sobre parsers LALR.
+Parsers LALR tem custo e poder intermediário quando comparados com os outros tipos de parsers LR, o seu objetivo é encontrar erros semânticos no código, erros de lógica que possam ter passado pelo analisador léxico. São difíceis de ser gerados manualmente, por seguir a estratégia Bottom-Up de parsing, porém são fácilmente automatizáveis por GLC.
+
+6. Enuncia os teoremas de Church-Rosser
+	1 - A forma normal de uma expressão é única, se ela existir
+	2 - A escolha do Redex mais externo e mais a esquerda a cada avaliação leva a forma normal, se ela existir. 
