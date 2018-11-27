@@ -1,5 +1,7 @@
 package BA;
 
+import java.util.ArrayList;
+
 public class BracketAbstraction {
 
 	/*
@@ -130,32 +132,38 @@ public class BracketAbstraction {
 	 */
 	public static String applytBracket(String a) {
 		String atual = a;
-		String proxima = "";
 		int inicioArgumentos = findArgumentsStartPosition(a);
 		char bracket = atual.charAt(inicioArgumentos - 2);
 		while (findBracket(bracket, atual) != -1) {
 			int posicao = findBracket(bracket, atual);
 			atual = removeParenthesis(posicao, atual);
 			int arg1 = findArgument(posicao, atual), arg2;
-			
-			if ((arg1) < atual.length() && atual.charAt(arg1) == ')') arg2 = -1;// Checking if there is only one argument
-			else if (arg1 < atual.length()) arg2 = findArgument(arg1, atual);// If there is more than one, then find the end of the second argument
-			else arg2 = -1;// Catches the case where the end of the first argument is the last position at string, avoiding OutOfBOunds
-				
 
-			if (arg2 != -1) proxima = applyS(atual, posicao, arg1, arg2, bracket);// If there is more than one argument, then [x]ab == S([x]a)([x]b)
+			if ((arg1) < atual.length() && atual.charAt(arg1) == ')')
+				arg2 = -1;// Checking if there is only one argument
+			else if (arg1 < atual.length())
+				arg2 = findArgument(arg1, atual);// If there is more than one, then find the end of the second argument
+			else
+				arg2 = -1;// Catches the case where the end of the first argument is the last position at
+							// string, avoiding OutOfBOunds
+
+			if (arg2 != -1)
+				atual = applyS(atual, posicao, arg1, arg2, bracket);// If there is more than one argument, then [x]ab
+																	// == S([x]a)([x]b)
 			else { // If there is only one argument, then for [x]a == Ka if a != x, else [x]a == I
-				if (arg1 - 1 == posicao) { // Avoiding to apply K or I, mainly K, in a example like ([x](aaa)), the mistake would result in (Kaaa)
-					if (bracket == atual.charAt(arg1 - 1)) proxima = applyI(atual, posicao, arg1);
-					else proxima = applyK(atual, posicao, arg1);
-				} else proxima = atual;
+				if (arg1 - 1 == posicao) { // Avoiding to apply K or I, mainly K, in a example like ([x](aaa)), the
+											// mistake would result in (Kaaa)
+					if (bracket == atual.charAt(arg1 - 1))
+						atual = applyI(atual, posicao, arg1);
+					else
+						atual = applyK(atual, posicao, arg1);
+				}
 			}
-			atual = proxima;
-			proxima = "";
 		}
+
 		return atual;
 	}
-	
+
 	/*
 	 * ([x]ab) == (S([x]a)([x]b))
 	 */
@@ -237,9 +245,12 @@ public class BracketAbstraction {
 	public static String leftAssociation(String a) {
 		int inicioArgs = findArgumentsStartPosition(a); // Association only starts after the brackets
 		String aux = a;
-		for (int i = inicioArgs; i < aux.length(); i++) { // Search the whole string for a position with more than 2 arguments
+		for (int i = inicioArgs; i < aux.length(); i++) { // Search the whole string for a position with more than 2
+															// arguments
 			int nArgs = countArguments(i, aux);
-			if (i == inicioArgs || (aux.charAt(i) != '(' && aux.charAt(i) != ')') && nArgs > 2) { // If there is such case, then left associate them
+			if (i == inicioArgs || (aux.charAt(i) != '(' && aux.charAt(i) != ')') && nArgs > 2) { // If there is such
+																									// case, then left
+																									// associate them
 				String atual = aux;
 				String proxima = "";
 				for (int j = 0; j < nArgs - 1; j++) {
@@ -250,12 +261,12 @@ public class BracketAbstraction {
 						proxima += atual.charAt(k);
 					}
 					proxima += "(";
-					
+
 					for (; k < arg2; k++) {
 						proxima += atual.charAt(k);
 					}
 					proxima += ")";
-					
+
 					for (; k < atual.length(); k++) {
 						proxima += atual.charAt(k);
 					}
@@ -308,9 +319,124 @@ public class BracketAbstraction {
 	}
 
 	/*
+	 * KSI Machine and is operators
+	 */
+	public static String evaluateExpression(String entrada, String args) {
+		String atual = runAbstraction(entrada);
+		String argumentos = removeRedundantParenthesis(removeBlankSpaces(args));
+		if (atual != null && countArguments(0, argumentos) == countBrackets(entrada)) {
+			atual = removeRedundantParenthesis(removeBlankSpaces(atual += args));
+			System.out.println("Evaluate expression");
+			System.out.println(atual);
+			System.out.println();
+			int inicioExpr = 0;
+			while (inicioExpr < atual.length()) {
+				switch (atual.charAt(inicioExpr)) {
+				case '(':
+					atual = removeParenthesis(inicioExpr, atual);
+					break;
+				case 'S':
+					atual = evaluateS(inicioExpr, atual);
+					break;
+				case 'K':
+					atual = evaluateK(inicioExpr, atual);
+					break;
+				case 'I':
+					atual = evaluateI(inicioExpr, atual);
+					break;
+				default:
+					inicioExpr++;
+					break;
+				}
+				 System.out.println(atual); 
+			}
+		} else if (countArguments(0, argumentos) < countBrackets(entrada)) {
+			System.err.println("Less arguments than expected");
+		} else if ((countArguments(0, argumentos) > countBrackets(entrada))) {
+			System.err.println("More arguments than expected");
+		}
+		return atual;
+	}
+
+	/*
+	 * For Sabc does ac(bc)
+	 */
+	public static String evaluateS(int inicioExpr, String atual) {
+		String proxima = "";
+		int inicioArg1 = inicioExpr + 1;
+		int fimArg1 = findArgument(inicioArg1, atual);
+		int fimArg2 = findArgument(fimArg1, atual);
+		int fimArg3 = findArgument(fimArg2, atual);
+		for (int i = 0; i < inicioExpr; i++) {
+			proxima += atual.charAt(i);
+		}
+
+		for (int i = inicioArg1; i < fimArg1; i++) {
+			proxima += atual.charAt(i);
+		}
+		for (int i = fimArg2; i < fimArg3; i++) {
+			proxima += atual.charAt(i);
+		}
+		proxima += '(';
+		for (int i = fimArg1; i < fimArg2; i++) {
+			proxima += atual.charAt(i);
+		}
+		for (int i = fimArg2; i < fimArg3; i++) {
+			proxima += atual.charAt(i);
+		}
+		proxima += ')';
+
+		for (int i = fimArg3; i < atual.length(); i++) {
+			proxima += atual.charAt(i);
+		}
+
+		return proxima;
+	}
+
+	/*
+	 * For Kab does a
+	 */
+	public static String evaluateK(int inicioExpr, String atual) {
+		String proxima = "";
+		int inicioArg1 = inicioExpr + 1;
+		int fimArg1 = findArgument(inicioArg1, atual);
+		int fimArg2 = findArgument(fimArg1, atual);
+		for (int i = 0; i < inicioExpr; i++) {
+			proxima += atual.charAt(i);
+		}
+
+		for (int i = inicioArg1; i < fimArg1; i++) {
+			proxima += atual.charAt(i);
+		}
+
+		for (int i = fimArg2; i < atual.length(); i++) {
+			proxima += atual.charAt(i);
+		}
+
+		return proxima;
+	}
+
+	/*
+	 * For Ia does a
+	 */
+	public static String evaluateI(int inicioExpr, String atual) {
+		String proxima = "";
+		int inicioArg1 = inicioExpr + 1;
+		for (int i = 0; i < inicioExpr; i++) {
+			proxima += atual.charAt(i);
+		}
+
+		for (int i = inicioArg1; i < atual.length(); i++) {
+			proxima += atual.charAt(i);
+		}
+
+		return proxima;
+	}
+
+	/*
 	 * Full script
 	 */
-	public static void runAbstraction(String entrada) {
+	public static String runAbstraction(String entrada) {
 		entrada = removeRedundantParenthesis(removeBlankSpaces(entrada));
 		System.out.println("String");
 		System.out.println(entrada);
@@ -325,12 +451,45 @@ public class BracketAbstraction {
 				System.out.println();
 			}
 			System.out.println("Without redundant parenthesis");
-			System.out.println(removeRedundantParenthesis(entrada));
-		} else
-			System.out.println("Bad String");
+			entrada = removeRedundantParenthesis(entrada);
+			System.out.println(entrada);
+			System.out.println();
+			return entrada;
+		} else {
+			System.err.println("Bad String");
+			return null;
+		}
+
 	}
 
+	public static void evaluateNumericalPreFixExpression(String a) {
+		ArrayList<Character> stack = new ArrayList<Character>();
+		for (int i = 0; i < a.length(); i++) {
+			stack.add(a.charAt(i));
+		}
+		int i = stack.size()-1;
+		while (stack.size() > 1 && i >= 0) {
+			switch (stack.get(i)) {
+			case '+':
+				Integer aux = Integer.parseInt(stack.get(i+1)+"") + Integer.parseInt(stack.get(i+2)+"");
+				stack.remove(i+2);
+				stack.remove(i+1);
+				stack.remove(i);
+				stack.add(i, aux.toString().charAt(0));
+				break;
+			default:
+				i--;
+				break;
+			}
+			for (int j = 0; j < stack.size(); j++) {
+				System.out.print(stack.get(j));
+			}
+			System.out.println();
+		}
+		
+	}
 	public static void main(String[] args) {
-		runAbstraction("[a][b](b)abaabababaa(aaabbaba)");
+//		runAbstraction("[a][b][c]+bc");
+		evaluateNumericalPreFixExpression(evaluateExpression("[a][b]+ab", "32"));
 	}
 }
